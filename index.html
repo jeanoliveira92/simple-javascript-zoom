@@ -1,0 +1,75 @@
+<!-- Crie 3 classes CSS para imagens. As classes devem definir tamanhos
+diferentes para as imagens (ex: uma classe para imagens 50x50, outra
+classe para imagens 100x100 e outra para 150x150). Crie uma página
+contendo 10 imagens quaisquer e uma imagem de uma lupa pra zoom
+in (+) e outra para zoom out (-). Ao clicar na imagem da lupa zoom in,
+altere a classe das imagens para a classe que possua um maior
+tamanho de imagem. Ao clicar na lupa zoom out, altere a classe para
+uma que possua o tamanho de imagem menor. -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Javascript Zoom</title>
+    <style>
+        .btn-box {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+        }
+
+        .img-xs {
+            width: 25%;
+            height: auto;
+        }
+
+        .img-md {
+            width: 50%;
+            height: auto;
+        }
+
+        .img-lg {
+            width: 75%;
+            height: auto;
+        }
+
+        .lupa {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="./img/fotografia.jpg" class="img img-xs">
+
+        <div class="btn-box">
+            <img src="./img/plus.jpg" class="lupa" onclick="zoom('+')">
+            <img src="./img/minus.jpg" class="lupa" onclick="zoom('-')">
+        </div>
+    </div>
+
+    <script>
+        var vetSizes = ['img-xs', 'img-md', 'img-lg'];
+
+        function zoom(signal) {
+            // PRIMEIRO CAPTURO UMA IMAGEM
+            var imgs = document.getElementsByClassName("img");
+
+            // VERIFICA A QUAL CLASSE ESTA NO MOMENTO E IDENTIFICA O INDICE NO VETOR
+            var imgClass = vetSizes.indexOf(imgs[0].className.split(' ')[1]);
+
+            signal == "-" ? imgClass -= 1 : imgClass += 1;
+
+            if (imgClass >= 0 && imgClass < vetSizes.length) {
+                for (var i = 0; i < imgs.length; i++) {
+                    imgs[i].className = "img " + vetSizes[imgClass];
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
